@@ -98,6 +98,8 @@ sai_status_t stub_create_lag(
     status = check_attribs_metadata(attr_count, attr_list, lag_attribs, lag_vendor_attribs, SAI_OPERATION_CREATE);
     if (status != SAI_STATUS_SUCCESS) {
         printf("LAG attribute check failed\n");
+        lag_db.lags[lag_db_id].is_used = false;
+        stub_remove_lag(lag_id);
         return status;
     }
 
