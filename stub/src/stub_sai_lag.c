@@ -82,7 +82,7 @@ sai_status_t stub_create_lag(
     }
     if (ii == MAX_NUMBER_OF_LAGS) {
         printf("Cannot create LAG: limit is reached\n");
-        return SAI_STATUS_FAILURE;
+        return SAI_STATUS_TABLE_FULL;
     }
 
     sai_status_t status;
@@ -124,7 +124,7 @@ sai_status_t stub_remove_lag(
     for (int i = 0; i < MAX_NUMBER_OF_LAG_MEMBERS; i++) {
         if (lag_db.lags[lag_db_id].members_ids[i] != 0) {
             printf("Cannot remove LAG: it still has members\n");
-            return SAI_STATUS_FAILURE;
+            return SAI_STATUS_OBJECT_IN_USE;
         }
     }
     lag_db.lags[lag_db_id].is_used = false;
@@ -166,7 +166,7 @@ sai_status_t stub_create_lag_member(
 
     if (ii == MAX_NUMBER_OF_LAG_MEMBERS) {
         printf("Cannot create LAG member: limit is reached\n");
-        return SAI_STATUS_FAILURE;
+        return SAI_STATUS_TABLE_FULL;
     }
 
     sai_status_t status;
